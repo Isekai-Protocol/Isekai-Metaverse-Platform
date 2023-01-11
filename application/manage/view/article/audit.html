@@ -1,0 +1,27 @@
+<form class="layui-form  seller-alone-form" id="articleAudit" >
+    <div class="layui-form-item">
+        <input type="hidden" name="id" value="{$info.id}">
+    <div class="layui-form-item">
+
+        <div class="layui-inline">
+            <label class="layui-form-label">状态：</label>
+
+            <div class="layui-input-inline">
+                <select name="status" id="status" style="display:block;">
+                    <option value="0" {if $info.status=='0' }selected="selected" {/if}>待审核 </option>
+                    <option value="1" {if $info.status=='1' }selected="selected" {/if}> 草稿</option>
+                    <option value="2" {if $info.status=='2' }selected="selected" {/if}>通过 </option>
+                </select></div>
+        </div>
+    </div>
+
+
+    {:jshopToken('article_audit')}
+</form>
+<script>
+    layui.use(['form', 'laydate'], function () {
+        var form = layui.form, laydate = layui.laydate;
+
+        form.render();
+    });
+</script>

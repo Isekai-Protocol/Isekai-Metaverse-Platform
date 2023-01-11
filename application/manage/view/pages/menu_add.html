@@ -1,0 +1,73 @@
+<div style="padding:30px;" class="layui-form seller-alone-form" lay-filter="menu_add"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">上级菜单：</label>
+        <div class="layui-input-block">
+            <select name="pid" id="pid" lay-verify="required" lay-search>
+                <option value="0" {eq name="$info.pid" value="0"}selected{/eq}>顶级菜单</option>
+                {foreach $cate as $key=>$vo}
+                    <option value="{$vo.id}" {eq name="$info.pid" value="$vo.id"}selected{/eq}>{$vo.menu_name}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>菜单名称：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <input type="text" name="menu_name" required  placeholder="请输入标题信息" autocomplete="off" class="layui-input" value="">
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>菜单英文名称：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <input type="text" name="menu_eng_name" required  placeholder="请输入标题信息" autocomplete="off" class="layui-input" value="">
+        </div>
+    </div>
+
+    {if condition="$info.pid == 0"}
+        <div class="layui-form-item layui-upload">
+            <label class="layui-form-label">菜单图标：</label>
+            <div class="layui-input-inline seller-inline-4">
+                {Jshop:image id='menu_img' name="menu_img" value="info.menu_img" /}
+            </div>  
+        </div>
+    {/if}
+
+   <div class="layui-form-item">
+       <label class="layui-form-label">菜单地址：</label>
+       <div class="layui-input-block">
+           <select name="path" id="path" lay-verify="required" lay-search>
+               {foreach $path as $key=>$vo}
+                   <option value="{$vo.value}" {eq name="$info.path" value="$vo.value"}selected{/eq}>{$vo.name}</option>
+               {/foreach}
+           </select>
+       </div>
+   </div>
+
+    <div class="layui-form-item" style="margin: 20px 0 20px 0;">
+        <label class="layui-form-label">状态：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="status" value="0" title="禁用" {if $info.status == 0}checked{/if}>
+            <input type="radio" name="status" value="1" title="启用" {if $info.status == 1}checked{/if}>
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="margin-top: 10px">
+        <label class="layui-form-label">排序：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <input type="number" name="sort" required  value="" placeholder="数值越小越靠前" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    {:jshopToken('menu_add')}
+    <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+</div>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+        form.render();
+    });
+</script>

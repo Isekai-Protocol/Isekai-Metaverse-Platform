@@ -1,0 +1,300 @@
+<style>
+    #container{
+        padding: 0px;
+        border-radius:0px;
+        border-width:0px;
+    }
+    .character{
+        width: 15% !important;
+        float: left;
+        margin-right: 10px;
+    }
+
+    .part{
+        margin: 10px;
+    }
+    .spec_image{
+        /*display: inline-block;*/
+        margin: 5px;
+    }
+    .spec_image_item{
+        position: relative;
+        display: inline-block;
+    }
+    .del-img{
+        position: absolute;
+        background-color: rgba(0,0,0,.5);
+        color: #fff;
+        width: 13px;
+        height: 13px;
+        line-height: 12px;
+        font-size: 10px;
+        display: inline-block;
+        text-align: center;
+        border-radius: 50%;
+        right: -6px;
+        top: -6px;
+    }
+    .upSpecImage{
+        background-color: #FF7159 !important;
+        display: inline-block;
+        height: 38px;
+        line-height: 38px;
+        padding: 0 18px;
+        background-color: #009688;
+        color: #fff;
+        white-space: nowrap;
+        text-align: center;
+        border: none;
+        border-radius: 2px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    .layui-form-select{
+        display: inline-block;
+    }
+</style>
+<form class="layui-form seller-alone-form" action="" method="post">
+
+    <input type="hidden" name="id" value="{$info.info.id}">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>角色名称：</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" value="{$info.info.name}" required lay-verify="required" placeholder="请输入角色名称" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>角色英文名称：</label>
+        <div class="layui-input-block">
+            <input type="text" name="name_eng" value="{$info.info.name_eng}" required lay-verify="required" placeholder="请输入角色英文名称" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色立绘：</label>
+        <div class="layui-input-inline seller-inline-5">
+            {Jshop:image id='img' name='role_img' value="$info['extend']['role_img']"/}
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="margin: 20px 0 20px 0;">
+        <label class="layui-form-label">性别：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="0" title="无性" {if $info.info.sex == 0}checked{/if}>
+            <input type="radio" name="sex" value="1" title="男" {if $info.info.sex == 1}checked{/if}>
+            <input type="radio" name="sex" value="2" title="女" {if $info.info.sex == 2}checked{/if}>
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="margin: 20px 0 20px 0;">
+        <label class="layui-form-label">角色类型：</label>
+        <select name="role_type">
+            <option value="女标" {if condition="$info.extend.role_type eq '女标'"}selected {/if}>女标</option>
+            <option value="男标" {if condition="$info.extend.role_type eq '男标'"}selected {/if}>男标</option>
+            <option value="胖妞" {if condition="$info.extend.role_type eq '胖妞'"}selected {/if}>胖妞</option>
+            <option value="老头" {if condition="$info.extend.role_type eq '老头'"}selected {/if}>老头</option>
+            <option value="哥布林" {if condition="$info.extend.role_type eq '哥布林'"}selected {/if}>哥布林</option>
+        </select>
+    </div>
+
+    <div class="layui-form-item" style="margin: 20px 0 20px 0;">
+        <label class="layui-form-label">头身：</label>
+        <select name="figure">
+            <option value="5头身" {if condition="$info.extend.figure eq '5头身'"}selected {/if}>5头身</option>
+            <option value="6头身" {if condition="$info.extend.figure eq '6头身'"}selected {/if}>6头身</option>
+            <option value="7头身" {if condition="$info.extend.figure eq '7头身'"}selected {/if}>7头身</option>
+            <option value="8头身" {if condition="$info.extend.figure eq '8头身'"}selected {/if}>8头身</option>
+            <option value="9头身" {if condition="$info.extend.figure eq '9头身'"}selected {/if}>9头身</option>
+        </select>
+    </div>
+
+    <div class="layui-form-item" style="margin: 20px 0 20px 0;">
+        <label class="layui-form-label">职业类目：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="work_type" value="1" title="士" {if $info.extend.work_type == 1}checked{/if}>
+            <input type="radio" name="work_type" value="2" title="农" {if $info.extend.work_type == 2}checked{/if}>
+            <input type="radio" name="work_type" value="3" title="工" {if $info.extend.work_type == 3}checked{/if}>
+            <input type="radio" name="work_type" value="4" title="商" {if $info.extend.work_type == 4}checked{/if}>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">职业：</label>
+        <div class="layui-input-block">
+            <input type="text" name="work" value="{$info.info.work}" required lay-verify="required" placeholder="请输入职业" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">转生前职业：</label>
+        <div class="layui-input-block">
+            <input type="text" name="work_life" value="{$info.extend.work_life}" required lay-verify="required" placeholder="请输入转生前职业" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">版税：</label>
+        <div class="layui-input-block">
+            <input type="number" name="royalties" value="{$info.info.royalties}" required lay-verify="required" placeholder="版税" autocomplete="off" class="layui-input" style="width:5%;"><span style="position: relative;top: -35px;left: 100px;">%</span>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">称号：</label>
+        <div class="layui-input-block">
+            {volist name="info.extend.role_title_info" id="vot" key="tkey"}
+                <input type="text" name="role_title_info[title][]" value="{$vot.title}" required lay-verify="required" placeholder="请输入称号" autocomplete="off" class="layui-input character">
+                <input type="text" name="role_title_info[sort][]" value="{$vot.sort}" placeholder="请输入称号值" autocomplete="off" class="layui-input character">
+            {/volist}
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">历程：</label>
+        <div class="layui-input-block">
+            <textarea name="history" placeholder="请输入历程" class="layui-textarea">{$info.extend.history}</textarea>
+        </div>
+    </div>
+    <br>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">特性：</label>
+        <div class="layui-input-block">
+            {volist name="info.extend.character_info" id="vo" key="key"}
+                <input type="text" name="character_info[name][]" value="{$vo.name}" required lay-verify="required" placeholder="请输入特性" autocomplete="off" class="layui-input character">
+                <input type="text" name="character_info[value][]" value="{$vo.value}" placeholder="请输入特性值" autocomplete="off" class="layui-input character">
+            {/volist}
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">立场：</label>
+        <div class="layui-input-block">
+            <input type="text" name="position" value="{$info.extend.position}" required lay-verify="required" placeholder="请输入立场" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">天赋：</label>
+            {volist name="info.extend.talent_info" id="val" key="k"}
+                <div class="layui-input-block">
+                    <input type="text" name="talent_info[title][]" value="{$val.title}" required lay-verify="required" placeholder="请输入天赋名称" autocomplete="off" class="layui-input character">
+                    <a class="upSpecImage" href="javascript:void(0);">选择图片</a>
+                    <div class="spec_image" {if condition="!$val.img" } style="display: none;" {/if}>
+                        <div class="spec_image_item">
+                            <div class="del-img">
+                                x
+                            </div>
+                            <img src="{$val.img|_sImage}" id="talent_image-{$k}" style="width:60px;height:60px">
+                        </div>
+                        <input type="hidden" name="talent_info[img][]" value="{$val.img}"  >
+                    </div>
+                 </div>
+            {/volist}
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">潜能：</label>
+        <div class="layui-input-block">
+            {volist name="info.extend.potential_info" id="value" key="keys"}
+                <div class="layui-input-block" style="margin-left:0;">
+                    <input type="text" name="potential_info[title][]" value="{$value.title}" required lay-verify="required" placeholder="请输入潜能名称" autocomplete="off" class="layui-input character">
+                    <a class="upSpecImage" href="javascript:void(0);">选择图片</a>
+                    <div class="spec_image" {if condition="!$value.img" } style="display: none;" {/if}>
+                        <div class="spec_image_item">
+                            <div class="del-img">
+                                x
+                            </div>
+                            <img src="{$value.img|_sImage}" id="potential_image-{$keys}" style="width:60px;height:60px">
+                        </div>
+                        <input type="hidden" name="potential_info[img][]" value="{$value.img}">
+                    </div>
+                 </div>
+            {/volist}
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">组件：</label>
+        <div class="layui-input-block">
+            {volist name="info.part_arr" id="vol" key="kel"}
+                <p class="part">{$vol.part_cate}:{$vol.part_name}</p>
+            {/volist}
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            {:jshopToken('new_role_edit')}
+            <button type="button" class="layui-btn" lay-submit lay-filter="edit_role">保存</button>
+            <button onclick="javascript:history.back(-1)" type="reset" class="layui-btn layui-btn-primary">返回</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    //Demo
+    layui.use(['form','upload'], function(){
+        var form = layui.form;
+        var $ = layui.jquery,
+            upload = layui.upload;
+
+        //监听提交
+        form.on('submit(edit_role)', function(data){
+            JsPost("{:url('Goods/editRole')}", data.field, function(res){
+                if(res.status){
+                    layer.msg(res.msg, {time:1300},function(){
+                        window.location.href = "{:url('Goods/index')}";
+                    });
+                }else{
+                    layer.msg(res.msg);
+                }
+            })
+        });
+
+        var _editor = UE.getEditor("edit_image", {
+            initialFrameWidth: 800,
+            initialFrameHeight: 300,
+        });
+
+        _editor.ready(function() {
+            _editor.hide();
+            _editor.addListener('beforeInsertImage', function(t, arg) {
+                var obj = _editor.queryCommandValue("serverparam");
+                    if (arg.length > 1) {
+                        layer.msg("最多只能选择1张图片，请重新选择");
+                        return false;
+                    }
+                    if (arg.length > 0) {
+                        var specImageTd = obj.specItem.parent().find(".spec_image");
+                        specImageTd.find('img').attr('src', arg[0].src);
+                        specImageTd.find('input').val(arg[0].image_id);
+                        specImageTd.show();
+                    } else {
+                        layer.msg("请先选择图片");
+                        return false;
+                    }
+                return true;
+            });
+        });
+
+        //上传规格图片
+        $("body").on("click", ".upSpecImage", function() {
+            var obj = _editor.queryCommandValue("serverparam");
+            obj.type = "spec";
+            obj.specItem = $(this);
+            var specImage = _editor.getDialog("insertimage");
+            specImage.open();
+        });
+        // 删除规格图片
+        $("body").on("click", ".del-img", function() {
+            var specImageDiv = $(this).parent().parent();
+            specImageDiv.find('img').attr('src', '');
+            specImageDiv.find('input').val('');
+            specImageDiv.hide();
+        })
+    });
+</script>
+<textarea id="edit_image" style="display: none;"></textarea>

@@ -1,0 +1,116 @@
+<style type="text/css">
+    .layui-form-pane .layui-form-label{
+        padding: 8px 0px;
+    }
+</style>
+<div style="padding: 30px;" class="layui-form layui-form-pane" lay-filter="edit_pictures"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i> 插画名称：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <input type="text" name="name" required lay-verify="required" placeholder="请输入插画名称" autocomplete="off" class="layui-input" value="{$data.name}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i> 插画英文名称：</label>
+        <div class="layui-input-inline seller-inline-5">
+            <input type="text" name="name_eng" required lay-verify="required" placeholder="请输入插画英文名称" autocomplete="off" class="layui-input" value="{$data.name_eng}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>专辑：</label>
+        <div class="layui-input-inline seller-inline-5">
+            <select name="cate_id" lay-verify="required" style="z-index: 5">
+                {volist name='cate' id='vo'}
+                <option value="{$vo.id}" {if $vo.id == $info.cate_id}selected{/if}>{$vo.type_name}</option>
+                {/volist}
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-upload">
+        <label class="layui-form-label">画作：</label>
+        <div class="layui-input-inline seller-inline-4">
+            {Jshop:image id='cover' name="cover" value="$data.cover" /}
+        </div>  
+    </div>
+
+    <div class="layui-form-item" style="margin: 20px 0 20px 0;">
+        <label class="layui-form-label">插画类型：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="type" value="1" title="过场" {if $data.type == 1}checked{/if}>
+            <input type="radio" name="type" value="2" title="立绘" {if $data.type == 2}checked{/if}>
+            <input type="radio" name="type" value="3" title="背景" {if $data.type == 3}checked{/if}>
+            <input type="radio" name="type" value="4" title="头像" {if $data.type == 4}checked{/if}>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">简介：</label>
+        <div class="layui-input-block">
+            <textarea name="desc" placeholder="请输入简介" class="layui-textarea">{$data.desc}</textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">英文简介：</label>
+        <div class="layui-input-block">
+            <textarea name="desc_eng" placeholder="请输入英文简介" class="layui-textarea">{$data.desc_eng}</textarea>
+        </div>
+    </div>
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <input type="number" name="sort" placeholder="排序" autocomplete="off" class="layui-input" value="{$data.sort}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">点赞：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <input type="number" name="likes" placeholder="自定义点赞数" autocomplete="off" class="layui-input" value="{$data.likes}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">价格：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <input type="number" name="price" placeholder="请输入价格" autocomplete="off" class="layui-input" value="{$data.price}">
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="margin: 20px 0 20px 0;">
+        <label class="layui-form-label">是否投放市场：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="is_market" value="0" title="否" {if $data.is_market == 0}checked{/if}>
+            <input type="radio" name="is_market" value="1" title="是" {if $data.is_market == 1}checked{/if}>
+        </div>
+    </div>
+
+    <!-- <div class="layui-form-item" style="margin: 20px 0 20px 0;">
+        <label class="layui-form-label">是否推荐：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="is_recommend" value="0" title="否" {if $data.is_recommend == 0}checked{/if}>
+            <input type="radio" name="is_recommend" value="1" title="是" {if $data.is_recommend == 1}checked{/if}>
+        </div>
+    </div> -->
+
+    <div class="layui-form-item" style="margin: 20px 0 20px 0;">
+        <label class="layui-form-label">是否是新品：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="is_new" value="0" title="否" {if $data.is_new == 0}checked{/if}>
+            <input type="radio" name="is_new" value="1" title="是" {if $data.is_new == 1}checked{/if}>
+        </div>
+    </div>
+    <input type="hidden" name="id" value="{$data.id}">
+    {:jshopToken('pictures_edit')}
+</div>
+
+<script>
+    layui.use('form', function(){
+        layui.form.render();
+    });
+</script>

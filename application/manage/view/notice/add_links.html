@@ -1,0 +1,70 @@
+<div style="padding:30px;" class="layui-form seller-alone-form" lay-filter="add_links"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>链接名称：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <input type="text" name="name" required lay-verify="required" placeholder="请输入标题信息" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">链接英文名称：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <input type="text" name="name_eng" placeholder="请输入英文标题信息" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    {if $type == 1}
+        <div class="layui-form-item">
+            <label class="layui-form-label"><i class="required-color">*</i>选择链接：</label>
+            <div class="layui-input-inline seller-inline-4">
+                <select name="parent_id" id="parent_id" lay-verify="required" style="z-index: 5">
+                    <option value="">一级链接</option>
+                        {volist name='parent' id='vo'}
+                            <option value="{$vo.id}">{$vo.name}</option>
+                        {/volist}
+                </select>
+            </div>
+        </div>
+    {/if}
+
+    {if $type == 2}
+        <div class="layui-form-item">
+            <label class="layui-form-label">图片：</label>
+            <div class="layui-input-inline seller-inline-4">
+                {Jshop:image id='path' name='path'/}
+            </div>
+        </div>
+    {/if}
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">跳转链接：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <input type="text" name="links" required lay-verify="required" placeholder="请输入跳转链接" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序：</label>
+        <div class="layui-input-block seller-inline-2">
+            <input type="text" name="sort" value="100" placeholder="从小到大排列" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    
+    <div class="layui-form-item" style="margin: 20px 0 20px 0;">
+        <label class="layui-form-label">状态：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="status" value="1" title="启用" checked>
+            <input type="radio" name="status" value="2" title="禁用">
+        </div>
+    </div>
+
+    <input type="hidden" name="type" value="{$type}">
+    {:jshopToken('links_add')}
+    <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+</div>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+        form.render();
+    });
+</script>

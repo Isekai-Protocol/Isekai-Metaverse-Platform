@@ -1,0 +1,158 @@
+<form class="layui-form seller-alone-form" id="settingAdd" action="" method="post">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>音频标题：</label>
+        <div class="layui-input-inline seller-inline-5">
+            <input type="text" name="name" required  lay-verify="required" placeholder="请输入音频标题" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>音频标题英文：</label>
+        <div class="layui-input-inline seller-inline-5">
+            <input type="text" name="name_eng" required  lay-verify="required" placeholder="请输入音频标题英文" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="margin: 20px 0 20px 0;">
+        <label class="layui-form-label">音频类型：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="type" value="3" title="背景音乐" checked style="display: block">背景音乐
+            <input type="radio" name="type" value="4" title="环境音效" checked style="display: block">环境音效
+            <input type="radio" name="type" value="2" title="角色配音" style="display: block">角色配音
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>选择专辑：</label>
+        <div class="layui-input-inline seller-inline-5">
+            <select name="cat_id" id="cat_id" lay-verify="required" style="z-index: 5;display: block">
+                <option value="">请选择专辑</option>
+                    {volist name='cate' id='vo'}
+                        <option value="{$vo.id}">{$vo.type_name}</option>
+                    {/volist}
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin: 20px 0 20px 0;">
+        <label class="layui-form-label">是否投放市场：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="is_market" value="0" title="否" checked style="display: block">否
+            <input type="radio" name="is_market" value="1" title="是" style="display: block">是
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin: 20px 0 20px 0;">
+        <label class="layui-form-label">是否是新品：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="is_new" value="0" title="否" checked style="display: block">否
+            <input type="radio" name="is_new" value="1" title="是" style="display: block">是
+        </div>
+    </div>
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label">价格：</label>
+        <div class="layui-input-inline seller-inline-5">
+            <input type="number" name="price" placeholder="请输入音频价格" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>音频封面图：</label>
+        <div class="layui-input-inline seller-inline-5">
+            {Jshop:image id='path' name="path"/}
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="margin-top: 10px">
+        <label class="layui-form-label">音频下载连接：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <input type="text" name="links" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="margin-top: 10px">
+        <label class="layui-form-label">点赞：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <input type="text" name="likes" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="margin-top: 10px">
+        <label class="layui-form-label">排序：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <input type="number" name="sort" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">描述：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <textarea name="desc" placeholder="描述信息" class="layui-textarea"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">描述英文：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <textarea name="desc_eng" placeholder="描述英文信息" class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <br>
+    <div class="layui-form-item video" >
+        <label class="layui-form-label"><i class="required-color">*</i>音频：</label>
+        <div class="layui-input-inline" style="width:300px;">
+            <div class="layui-progress" lay-showPercent="true" lay-filter="upload" style="margin-bottom:2px;">
+                <div class="layui-progress-bar layui-bg-blue" lay-percent="0%"  ></div>
+            </div>
+            <button type="button" class="layui-btn" id="video" style="margin-bottom:10px;"><i class="layui-icon"></i>上传音频</button>
+            <br />
+            <i class="required-color">*只能上传音频 最大上传文件为 2G </i>
+
+            <audio class="edui-faked video-js"  controls src="" id="toVideo" style="width:300px;height:60px;" poster="" >
+            </audio>
+        </div>
+        <input type="hidden" name="video_url" class="video" id="video_url"/>
+        <div id="fileName">
+        </div>
+    </div>
+
+</form>
+
+<script>
+    $('#toVideo').hide();
+    $('.layui-progress').hide();
+    //渲染表单
+    layui.use(['form','upload','element'], function() {
+        var $ = layui.jquery
+            , upload = layui.upload
+            , element = layui.element;
+
+
+        /***
+         * 上传音频
+         * */
+        upload.render({
+            elem: '#video'
+            , url: "{:url('Files/uploadMusic')}"
+            , accept: 'audio' //视频
+            ,progress: function(n){
+                var percent = n + '%';//获取进度百分比
+                element.progress('upload', percent); //可配合 layui 进度条元素使用
+                $('.layui-progress').show();
+            }
+            , done: function (res) {
+                layer.msg(res.msg);
+                if (res.status) {
+                    $('#toVideo').attr('src',res.data);
+                    $('#video_url').attr('value',res.data);
+                    $('#toVideo').show();
+                    $('.layui-progress').hide();
+                }
+            }
+            , error: function (res) {
+                layer.closeAll('loading');
+                layer.msg("上传失败，请重新上传");
+            }
+        });
+
+    });
+</script>

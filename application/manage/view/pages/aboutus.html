@@ -1,0 +1,54 @@
+<style>
+    #container{
+        padding: 0px;
+        border-radius:0px;
+        border-width:0px;
+    }
+</style>
+<form class="layui-form seller-alone-form" action="" method="post">
+
+    <div class="layui-form-item layui-form-text" >
+        <div id="content" style="display: none;">{$info}</div>
+    </div>
+    <div class="layui-form-item" >
+        <script id="container" name="content" type="text/plain" class="layui-textarea"></script>
+    </div>
+    <br/>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            {:jshopToken('about_us_edit')}
+            <button type="button" class="layui-btn" lay-submit lay-filter="edit_notice">保存</button>
+            <button onclick="javascript:history.back(-1);" type="reset" class="layui-btn layui-btn-primary">返回</button>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    //Demo
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form, layer = layui.layer, laydate = layui.laydate;
+
+        //监听提交
+        form.on('submit(edit_notice)', function(data){
+            JsPost("{:url('Setting/aboutUs')}", data.field, function(res){
+                if(res.status){
+                    layer.msg(res.msg, {time: 1300},function(){
+                        window.location.href = "{:url('Setting/aboutUs')}";
+                    });
+                }else{
+                    layer.msg(res.msg);
+                }
+            })
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    var ue = UE.getEditor('container');
+    var content = $("#content").text();
+
+    ue.ready(function(){
+        ue.setContent(content);
+    })
+</script>

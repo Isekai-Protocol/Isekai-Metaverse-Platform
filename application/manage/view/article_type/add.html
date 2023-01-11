@@ -1,0 +1,118 @@
+<style>
+    #desc{
+        padding: 0px;
+        border-radius:0px;
+        border-width:0px;
+    }
+    #desc_eng{
+        padding: 0px;
+        border-radius:0px;
+        border-width:0px;
+    }
+</style>
+<form class="layui-form seller-alone-form" action="" method="post">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>专辑名称：</label>
+        <div class="layui-input-block">
+            <input type="text" name="type_name" required  lay-verify="required" placeholder="请输入专辑名称" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>专辑英文名称：</label>
+        <div class="layui-input-block">
+            <input type="text" name="type_name_eng" required  lay-verify="required" placeholder="请输入专辑英文名称" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">专辑类型：</label>
+        <div class="layui-input-inline seller-inline-3">
+            <select name="type" lay-verify="">
+                <option value="1">文章专辑</option>
+                <option value="2">音频专辑</option>
+                <option value="3">游戏专辑</option>
+                <option value="4">插画专辑</option>
+                <option value="5">角色专辑</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">封面图：</label>
+        <div class="layui-input-inline seller-inline-5">
+            {Jshop:image id='img' name='cover'/}
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">专辑背景：</label>
+        <div class="layui-input-inline seller-inline-5">
+            {Jshop:image id='back_url' name='back_url'/}
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">专辑介绍：</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入专辑介绍" name="desc" class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <br>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">专辑英文介绍：</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入专辑英文介绍" name="desc_eng" class="layui-textarea"></textarea>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item" style="margin: 20px 0 20px 0;">
+        <label class="layui-form-label">是否投放市场：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="is_market" value="0" title="否" checked>
+            <input type="radio" name="is_market" value="1" title="是">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序：</label>
+        <div class="layui-input-block seller-inline-2">
+            <input type="text" name="sort" required  lay-verify="required" value="100" placeholder="从小到大排列" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            {:jshopToken('article_type_add')}
+            <button type="button" class="layui-btn" lay-submit lay-filter="add_article_cate">保存</button>
+            <button onclick="javascript:history.back(-1);" type="reset" class="layui-btn layui-btn-primary">返回</button>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+        //监听提交
+        form.on('submit(add_article_cate)', function(data){
+            JsPost("{:url('ArticleType/add')}", data.field, function(res){
+                if(res.status){
+                    layer.msg(res.msg, {time: 1300},function(){
+                        window.location.href = "{:url('ArticleType/index')}";
+                    });
+                }else{
+                    layer.msg(res.msg);
+                }
+            })
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    // var ue = UE.getEditor('desc');
+    // var ue = UE.getEditor('desc_eng');
+</script>

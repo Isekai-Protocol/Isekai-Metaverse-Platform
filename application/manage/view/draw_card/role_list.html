@@ -1,0 +1,109 @@
+<form class="layui-form seller-form"  action="" >
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label" style="width:120px;">角色名称：</label>
+            <div class="layui-input-inline seller-inline-3">
+                <input type="text" name="title" lay-verify="title" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <button class="layui-btn layui-btn-sm" lay-submit lay-filter="*"><i class="iconfont icon-chaxun"></i>筛选</button>
+            <button class="layui-btn layui-btn-sm" lay-submit lay-filter="add">
+                <i class="layui-icon">&#xe608;</i>添加</button>
+        </div>
+    </div>
+</form>
+<div class="table-body">
+    <table id="bargain" lay-filter="bargain"></table>
+</div>
+<script>
+    layui.use(['form', 'layedit', 'laydate','table'], function(){
+        var table = layui.table;
+
+        //表格渲染
+        layui.table.render({
+            elem: '#bargain',
+            height: 'full-100',
+            cellMinWidth: '80',
+            page: 'true',
+            limit:'20',
+            url: "{:url('roleList')}",
+            id:'bargain',
+            cols: [[
+                {field:'id', width:90, title:'ID', align: 'center'},
+                {field: 'operating', title: '操作',  align: 'center',templet:function(data){
+                    var html = '';
+                    html += '<a  class="layui-btn layui-btn-xs option-edit" data-id="' + data.id + '">编辑</a>';
+                    html += '<a  class="layui-btn layui-btn-danger layui-btn-xs option-del" data-id="' + data.id + '" >删除</a>';
+                  
+                    return html;
+                }},
+                {field:'cover',title:'缩略图', align: 'center',templet: function(data){
+                    return '<a href="javascript:void(0);" onclick=viewImage("'+data.cover+'")><image style="max-width:30px;max-height:30px;" src="'+data.cover+'"/></a>';
+                }},
+                {field:'name',title:'角色名称', align: 'center'},
+
+            ]]
+        });
+
+        //搜索
+        layui.form.on('submit(*)', function(data){
+            layui.table.reload('bargain', {
+                where: data.field
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+        //添加
+        layui.form.on('submit(add)', function () {
+            window.location.href="{:url('addRole')}";
+            return false;
+        });
+        //编辑
+        $(document).on('click','.option-edit',function(){
+            var id = $(this).attr('data-id');
+            window.location.href="{:url('editRole')}?id="+id;
+            return false;
+        });
+        
+        //删除
+        $(document).on('click','.option-del',function(){
+            var id = $(this).attr('data-id');
+            layer.confirm('您确定删除此UP角色吗？', {
+                btn: ['确认','取消'] //按钮
+            }, function(){
+                //去删除
+                JsPost(" {:url('del')}",{'id':id},function(res){
+                    if(res.status){
+                        layer.msg("删除成功");
+                        table.reload('bargain');
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                });
+            }, function(){
+                layer.close(1);
+            });
+        });
+
+        //监听 操作状态
+        layui.form.on('switch(change)', function(obj){
+
+            JsPost("{:url('changeState')}",{
+                id: obj.value,
+                elem: obj.elem.name,
+                state: obj.elem.checked
+            },function(res){
+                layer.msg(res.msg);
+            });
+        });
+
+    });
+</script>
+
+<script type="text/html" id="status">
+    <input type="checkbox" name="status" value="{{d.id}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="change" {{ d.status == 1 ? 'checked' : '' }}>
+</script>

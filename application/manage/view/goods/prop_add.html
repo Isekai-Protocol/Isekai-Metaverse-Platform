@@ -1,0 +1,53 @@
+<form class="layui-form seller-alone-form" id="propAdd" action="" method="post">
+
+   <!--  <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>道具名：</label>
+        <div class="layui-input-inline seller-inline-5">
+            <input type="text" name="name" required  lay-verify="required" placeholder="请输入道具名" autocomplete="off" class="layui-input">
+        </div>
+    </div> -->
+  <!--   <div class="layui-form-item">
+        <label class="layui-form-label">道具名英文：</label>
+        <div class="layui-input-inline seller-inline-5">
+            <input type="text" name="name_eng" placeholder="请输入道具名英文" autocomplete="off" class="layui-input">
+        </div>
+    </div> -->
+
+    <!-- <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>表情/头像：</label>
+        <div class="layui-input-inline seller-inline-5">
+            {Jshop:image id='cover' name="cover"/}
+        </div>
+    </div> -->
+
+  <!--   <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>表情/头像：</label>
+        <div class="layui-input-inline seller-inline-5">
+            {Jshop:image id='prop_img' name="prop_img"/}
+        </div>
+    </div> -->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>角色立绘：</label>
+        <div class="layui-input-inline seller-inline-5">
+            {Jshop:image id='role_img' name="role_img"/}
+        </div>
+    </div>
+
+   <!--  <div class="layui-form-item">
+        <label class="layui-form-label">排序：</label>
+        <div class="layui-input-inline seller-inline-5">
+            <input type="number" name="sort" placeholder="请输入道具排序" autocomplete="off" class="layui-input">
+        </div>
+    </div> -->
+</form>
+
+<script>
+    //渲染表单
+    layui.use(['form','upload','element'], function() {
+        var $ = layui.jquery
+            , upload = layui.upload
+            , element = layui.element;
+
+    });
+</script>

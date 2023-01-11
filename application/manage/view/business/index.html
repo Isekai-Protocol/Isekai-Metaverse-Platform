@@ -1,0 +1,41 @@
+
+<div class="table-body">
+	<table id="businessTable" lay-filter="businessTable"></table>
+</div>
+<script>
+    layui.use(['table','form','layer','laydate','layedit'],function(){
+        var layer = layui.layer, table = layui.table,form = layui.form,date = layui.laydate;
+        //执行渲染
+        table.render({
+            elem: '#businessTable', //指定原始表格元素选择器（推荐id选择器）
+            height: 'full-139',
+            cellMinWidth: '80',
+            page: 'true',
+            limit:'20',
+            id:'businessTable',
+            url: "{:url('Business/index')}",
+            cols: [[ //标题栏
+                {field:'id', title:'ID', align: 'center'},
+                {field:'buy_name',  title:'买方', align: 'center'},
+                {field: 'sale_name', title: '卖方',align:'center'},               
+                {field: 'bus_type', title: '交易类型',align:'center'},
+                {field: 'obj_name', title: '交易藏品',align:'center'},
+                {field: 'price', title: '成交价',align:'center',sort:true},
+                {field: 'ctime', title: '交易时间',align:'center',sort:true},
+                // {field: 'words', title: '字数',align:'center',sort:true,width:100},
+                // {field: 'sort', title: '排序',align:'center',sort:true,width:80},
+                // {width:300, title:'操作',align:'center', toolbar:'#articleBar'}
+            ]] //设置表头
+            //,…… //更多参数参考右侧目录：基本参数选项
+        });
+
+
+
+
+
+
+
+      
+    })
+</script>
+

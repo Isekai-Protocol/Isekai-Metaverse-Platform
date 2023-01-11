@@ -1,0 +1,35 @@
+<div style="padding:30px;" class="layui-form seller-alone-form" lay-filter="edit_label"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>标签名称：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <input type="text" name="name" required lay-verify="required" placeholder="请输入标题信息" autocomplete="off" class="layui-input" value="{$labelInfo.name}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">颜色编码：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <input type="text" name="bak_color" required lay-verify="required" placeholder="请输入颜色编码如#ccc" autocomplete="off" class="layui-input" value="{$labelInfo.bak_color}">
+        </div>
+    </div>
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label">标签类型：</label>
+        <div class="layui-input-inline seller-inline-3">
+            <select name="type" id="type">
+                <option value="1" {if $labelInfo.type == 1}selected{/if}>文章</option>
+                <option value="2" {if $labelInfo.type == 2}selected{/if}>游戏</option>
+            </select>
+        </div>
+    </div>
+
+    <input type="hidden" name="id" value="{$labelInfo.id}">
+    {:jshopToken('label_edit')}
+    <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+</div>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+        form.render();
+    });
+</script>

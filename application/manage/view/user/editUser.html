@@ -1,0 +1,100 @@
+<form class="layui-form  seller-alone-form" id="userEdit" style="padding: 20px;">
+    <div class="layui-form-item">
+        <input type="hidden" name="id" value="{$info.id}">
+        <div class="layui-inline">
+            <label class="layui-form-label">手机号：</label>
+
+            <div class="layui-input-inline">
+                <input type="text" name="mobile" required lay-verify="required|phone"  class="layui-input" autocomplete="off" value="{$info.mobile}">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">邮箱：</label>
+
+            <div class="layui-input-inline">
+                <input type="text" name="email" class="layui-input" placeholder="修改邮箱"  value="{$info.email}">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">用户名：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username" class="layui-input" placeholder="修改用户名"  value="{$info.username}">
+                
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">密码：</label>
+
+            <div class="layui-input-inline">
+                <input type="text" name="password" class="layui-input" placeholder="为空时不修改密码" autocomplete="off" onfocus="this.type='password'" >
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">确认密码：</label>
+
+            <div class="layui-input-inline">
+                <input type="text" name="repassword" class="layui-input" placeholder="请与密码保持一致" autocomplete="off" onfocus="this.type='password'" >
+            </div>
+        </div>
+    </div>
+      <div class="layui-form-item">
+
+        <div class="layui-inline">
+            <label class="layui-form-label">是否推荐创作者：</label>
+
+            <div class="layui-input-inline">
+                <select name="is_recommend" id="is_recommend">
+                    <option value="0" {if $info.is_recommend=='0' }selected="selected" {/if}>否 </option>
+                    <option value="1" {if $info.is_recommend=='1' }selected="selected" {/if}>是 </option>
+                </select></div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+
+        <div class="layui-inline">
+            <label class="layui-form-label">状态：</label>
+
+            <div class="layui-input-inline">
+                <select name="status" id="status">
+                    <option value="1" {if $info.status=='1' }selected="selected" {/if}>正常 </option>
+                    <option value="2" {if $info.status=='2' }selected="selected" {/if}>停用 </option>
+                </select></div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">头像：</label>
+
+            <div class="layui-input-inline">
+                {Jshop:image id="avatar" name="avatar" value="$info.avatar"}
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">背景图：</label>
+
+            <div class="layui-input-inline">
+                {Jshop:image id="back_img" name="back_img" value="$info.back_img"}
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">备注：</label>
+            <div class="layui-input-inline">
+                <textarea name="remarks" maxlength="100" cols="10" rows="3" placeholder="用户备注" class="layui-textarea" style="resize: none">{$info.remarks}</textarea>
+            </div>
+        </div>
+    </div>
+    {:jshopToken('edit_user')}
+</form>
+<script>
+    layui.use(['form', 'laydate'], function () {
+        var form = layui.form, laydate = layui.laydate;
+        laydate.render({
+            elem: '#birthday',
+						trigger: 'click' //自动弹出控件的事件，采用click弹出
+        });
+        form.render();
+    });
+</script>

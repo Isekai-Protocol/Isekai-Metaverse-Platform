@@ -1,0 +1,20 @@
+<form class="layui-form  seller-alone-form" id="listAdd" style="padding:20px;">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">钱包地址：</label>
+
+            <div class="layui-input-inline">
+                <input type="text" name="address" class="layui-input" autocomplete="off">
+            </div>
+        </div>
+    </div>
+  
+    {:jshopToken('add_list')}
+</form>
+<script>
+    layui.use(['form', 'laydate'], function () {
+        var form = layui.form;
+        form.render();
+
+    });
+</script>

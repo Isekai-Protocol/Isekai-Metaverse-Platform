@@ -1,0 +1,573 @@
+<script src="__STATIC_LIB__echarts/build/dist/echarts.js"></script>
+<div class="layadmin-tabsbody-item layui-show">
+
+    <div class="layui-row layui-col-space15">
+            <div class="layui-col-md8" style="width:100%;">
+                <div class="layui-row layui-col-space15">
+                    <!-- <div class="layui-col-md6" style="width:25%;">
+                        <div class="layui-card">
+                            <div class="layui-card-header">
+                                <i class="iconfont icon-caozuo"></i>快捷操作
+                            </div>
+                            <div class="layui-card-body">
+                                <div class="layui-carousel layadmin-carousel layadmin-shortcut">
+                                    <ul class="layui-row layui-col-space10 layui-this">
+                                        <li class="layui-col-xs3">
+                                            <a href="javascript:;" lay-href="{:url('goods/index')}">
+                                                <i class="iconfont icon-goods"></i>
+                                                <cite>角色</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a href="javascript:;" lay-href="{:url('ArticleType/index')}">
+                                                <i class="iconfont icon-dingdan1"></i>
+                                                <cite>专辑</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a href="javascript:;" lay-href="{:url('user/index')}">
+                                                <i class="iconfont icon-user"></i>
+                                                <cite>会员</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a href="javascript:;" lay-href="{:url('article/index')}">
+                                                <i class="iconfont icon-gonggao"></i>
+                                                <cite>文章</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a href="javascript:;" lay-href="{:url('notice/music')}">
+                                                <i class="iconfont icon-promotion"></i>
+                                                <cite>音频</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a href="javascript:;" lay-href="{:url('Game/index')}">
+                                                <i class="iconfont icon-bangzhupeisongfuwu"></i>
+                                                <cite>游戏</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a href="javascript:;" lay-href="{:url('pictures/index')}">
+                                                <i class="iconfont icon-zhifu-01"></i>
+                                                <cite>插画</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a href="javascript:;" lay-href="{:url('setting/index')}">
+                                                <i class="iconfont icon-review"></i>
+                                                <cite>平台设置</cite>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="layui-col-md3" style="text-align: center;line-height: 50px;">
+                        <div class="layui-card">
+                           <!--  <div class="layui-card-header">
+                                <i class="iconfont icon-daiban"></i>待办事项
+                            </div> -->
+                            <div class="layui-card-body">
+                                <div class="layui-carousel layadmin-carousel layadmin-backlog" style="height: 100px !important;">
+                                    <h3>昨日活跃数</h3>
+                                    
+                                    <ul class="layui-row layui-col-space10 layui-this">
+                                        <li class="layui-col-xs13">
+                                            <a href="javascript:;"  class="layadmin-backlog-body">
+                                                <p><cite>{$time_count.day_count}</cite></p>
+                                            </a>
+                                        </li>
+                                       
+                                       
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   <div class="layui-col-md3" style="text-align: center;line-height: 50px;">
+                        <div class="layui-card">
+                           <!--  <div class="layui-card-header">
+                                <i class="iconfont icon-daiban"></i>待办事项
+                            </div> -->
+                            <div class="layui-card-body">
+                                <div class="layui-carousel layadmin-carousel layadmin-backlog" style="height: 100px !important;">
+                                    <h3>周活跃数</h3>
+                                    <ul class="layui-row layui-col-space10 layui-this">
+                                        <li class="layui-col-xs13">
+                                            <a href="javascript:;"  class="layadmin-backlog-body">
+                                                
+                                                <p><cite>{$time_count.week_count}</cite></p>
+                                            </a>
+                                        </li>
+                                       
+                                       
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                  <div class="layui-col-md3" style="text-align: center;line-height: 50px;">
+                      <div class="layui-card">
+                         <!--  <div class="layui-card-header">
+                              <i class="iconfont icon-daiban"></i>待办事项
+                          </div> -->
+                          <div class="layui-card-body">
+                              <div class="layui-carousel layadmin-carousel layadmin-backlog" style="height: 100px !important;">
+                                  <h3>月活跃数</h3>
+                                  
+                                  <ul class="layui-row layui-col-space10 layui-this">
+                                      <li class="layui-col-xs13">
+                                          <a href="javascript:;"  class="layadmin-backlog-body">
+                                              <p><cite>{$time_count.month_count}</cite></p>
+                                          </a>
+                                      </li>
+                                     
+                                     
+                                  </ul>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="layui-col-md3" style="text-align: center;line-height: 50px;">
+                      <div class="layui-card">
+                         <!--  <div class="layui-card-header">
+                              <i class="iconfont icon-daiban"></i>待办事项
+                          </div> -->
+                          <div class="layui-card-body">
+                              <div class="layui-carousel layadmin-carousel layadmin-backlog" style="height: 100px !important;">
+                                  <h3>DAU/MAU</h3>
+                                  <ul class="layui-row layui-col-space10 layui-this">
+                                      <li class="layui-col-xs13">
+                                          <a href="javascript:;"  class="layadmin-backlog-body">
+                                              
+                                              <p><cite>{$time_count.time_count}%</cite></p>
+                                          </a>
+                                      </li>
+                                     
+                                     
+                                  </ul>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+           <!--  <div class="layui-col-md4">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <i class="iconfont icon-gonggao"></i>版本信息
+                    </div>
+
+                    <div class="layui-card-body layui-text" id="view">
+
+                    </div>
+                </div>
+            </div> -->
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <i class="iconfont icon-dingdan1"></i>数据统计
+                    </div>
+                    <div class="layui-card-body">
+                        <div id="graphic" class="">
+                            <div id="main" class="main" style="height: 400px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <i class="iconfont icon-user"></i>新增用户
+                    </div>
+                    <div class="layui-card-body">
+                        <div id="graphics" class="">
+                            <div id="users" class="main" style="height: 400px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <i class="iconfont icon-user"></i>浏览统计
+                    </div>
+                    <div class="layui-card-body">
+                        <div id="graphics" class="">
+                            <div id="log" class="main" style="height: 400px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <!--  <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <i class="iconfont icon-user"></i>时长统计
+                    </div>
+                    <div class="layui-card-body">
+                        <div id="graphics" class="">
+                            <div id="time" class="main" style="height: 400px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+           <!--  <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header loading-more">
+                        <div><i class="iconfont icon-dingdan1"></i>最近登录</div>
+                        <a href="{:url('OperationLog/userLog')}">查看更多>></a>
+                    </div>
+
+                    <div class="layui-card-body" id="loginLog"></div>
+
+                </div>
+            </div> -->
+
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header loading-more">
+                        <div><i class="iconfont icon-dingdan1"></i>浏览时长</div>
+                        <a href="{:url('User/userViewTime')}">查看更多>></a>
+                    </div>
+                    <div class="layui-card-body" id="oplog-table"></div>
+                </div>
+            </div>
+
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header loading-more">
+                        <div><i class="iconfont icon-dingdan1"></i>点击次数</div>
+                        <a href="{:url('User/userViewClick')}">查看更多>></a>
+                    </div>
+                    <div class="layui-card-body" id="click-table"></div>
+                </div>
+            </div>
+
+            <script id="demo" type="text/html">
+                <table class="layui-table">
+                    <tbody>
+                        {{# for(var i = 0; i
+                        < d.length; i++){ }} <tr>
+                            <td><i>{{i+1}}</i><a class="notice" href="javascript:;" id="{{d[i].id}}">{{ d[i].title }}</a></td>
+                            </tr>
+                            {{# } }} {{# if(d.length === 0){ }} 没有最新的数据 {{# } }}
+                    </tbody>
+                </table>
+            </script>
+
+
+        <script id="log" type="text/html">
+
+            {{# if(d.length === 0){ }} 没有历史记录 {{# }else{ }}
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    <th>状态</th>
+                    <th>登录用户</th>
+                    <th>记录时间</th>
+                    <th>登录IP</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{# layui.each(d, function(index, item){ }}
+                <tr>
+                    <td>{{ item.state }}</td>
+                    <td>{{ item.username }}</td>
+                    <td>{{ item.ctime }}</td>
+                    <td>{{ item.ip }}</td>
+                </tr>
+                {{# }); }}
+                </tbody>
+            </table>
+            {{# } }}
+        </script>
+
+            <script id="version" type="text/html">
+                <table class="layui-table">
+                    <colgroup>
+                        <col width="100">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>产品名称</td>
+                            <td>
+                                {{ d.product }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>当前版本</td>
+                            <td>
+                                {{ d.version }} <a href="https://gitee.com/hnjihai/jshop_mall" target="_blank" style="padding-left: 15px;">更新日志</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>是否授权</td>
+                            <td>
+                                {{# if(d.is_authorization ==true){ }}
+                                <a href="https://www.jihainet.com/" style="color: green;" target="_blank">已授权</a> {{# }else{ }}
+                                <a href="https://www.jihainet.com/" style="color: red;" target="_blank">未授权</a> {{# } }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>产品授权</td>
+                            <td style="padding-bottom: 0;">
+                                <div class="layui-btn-container">
+                                    {{# if(d.is_authorization ==true){ }}
+                                    <a href="https://www.jihainet.com" target="_blank" class="layui-btn  layui-btn-bg">下载更新</a> {{# }else{ }}
+                                    <a href="https://www.jihainet.com/" target="_blank" class="layui-btn layui-btn-danger  layui-btn-bg">获取授权</a>
+                                    <a href="https://www.jihainet.com/" target="_blank" class="layui-btn  layui-btn-bg">立即下载</a> {{# } }}
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </script>
+
+
+            <script id="oplog" type="text/html">
+
+                {{# if(d.length === 0){ }} 没有浏览时长记录 {{# }else{ }}
+                <table class="layui-table">
+                    <thead>
+                        <tr>
+                            <th>页面</th>
+                            <th>用户</th>
+                            <th>停留时长</th>
+                            <th>进入时间</th>
+                            <th>离开时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{# layui.each(d, function(index, item){ }}
+                        <tr>
+                            <td>{{ item.page_name }}</td>
+                            <td>{{ item.user_name }}</td>
+                            <td>{{ item.used_time }}秒</td>
+                            <td>{{ item.enter_time }}</td>
+                            <td>{{ item.leave_time }}</td>
+                        </tr>
+                        {{# }); }}
+                    </tbody>
+                </table>
+                {{# } }}
+            </script>
+
+            <script id="opclick" type="text/html">
+
+                {{# if(d.length === 0){ }} 没有点击次数记录 {{# }else{ }}
+                <table class="layui-table">
+                    <thead>
+                        <tr>
+                            <th>页面</th>
+                            <!-- <th>用户</th> -->
+                            <!-- <th>停留时长</th> -->
+                            <!-- <th>进入时间</th> -->
+                            <th>点击次数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{# layui.each(d, function(index, item){ }}
+                        <tr>
+                            <td>{{ item.page_name }}</td>
+                            <!-- <td>{{ item.user_name }}</td> -->
+                            <!-- <td>{{ item.used_time }}秒</td> -->
+                            <!-- <td>{{ item.enter_time }}</td> -->
+                            <td>{{ item.total }}次</td>
+                        </tr>
+                        {{# }); }}
+                    </tbody>
+                </table>
+                {{# } }}
+            </script> 
+
+            <script type="text/javascript">
+                layui.use(['laytpl', 'layer'], function() {
+                    var $ = layui.$,
+                        laytpl = layui.laytpl,
+                        layer = layui.layer;
+                    // $.get("{:url('manage/administrator/getVersion')}", function(data) {
+                    //     var getTpl = version.innerHTML,
+                    //         view = document.getElementById('view');
+                    //     laytpl(getTpl).render(data.data, function(html) {
+                    //         view.innerHTML = html;
+                    //     });
+                    // });
+
+
+                    //获取历史登录记录
+                    // $.get("{:url('manage/administrator/userLogList',array('state'=>1))}", function(data) {
+                    //     var getTpl = log.innerHTML,
+                    //         view = document.getElementById('loginLog');
+                    //     laytpl(getTpl).render(data.data, function(html) {
+                    //         view.innerHTML = html;
+                    //     })
+                    // });
+                    JsGet("{:url('manage/User/userViewTime',array('limit'=>3))}", function(data) {
+                        var getTpl = oplog.innerHTML,
+                            view = document.getElementById('oplog-table');
+                        laytpl(getTpl).render(data.data, function(html) {
+                            view.innerHTML = html;
+                        })
+                    });
+
+                    JsGet("{:url('manage/User/userViewClick',array('limit'=>3))}", function(data) {
+                        var getTpl = opclick.innerHTML,
+                            view = document.getElementById('click-table');
+                        laytpl(getTpl).render(data.data, function(html) {
+                            view.innerHTML = html;
+                        })
+                    });
+                });
+                // 路径配置
+                require.config({
+                    paths: {
+                        echarts: '__STATIC_LIB__echarts/build/dist'
+                    }
+                });
+                require(
+                    ['echarts', 'echarts/chart/line'],
+                    function(ec) {
+                        var myChart = ec.init(document.getElementById('main'));
+                        var option = {
+                            // title: {
+                            //     text: '最近7天用户统计'
+                            // },
+                            tooltip: {
+                                show: true
+                            },
+                            legend: {},
+                            yAxis: [{
+                                type: 'value'
+                            }],
+                            xAxis: [],
+                            series: []
+                        };
+                        $.get('{:url("user/statistics2")}').done(function(data) {
+                            myChart.setOption({
+                                legend: data.legend,
+                                xAxis: data.xAxis,
+                                series: data.series
+                            });
+                        });
+                        myChart.setOption(option);
+                    }
+                );
+                require(
+                    [
+                        'echarts',
+                        'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+                    ],
+
+
+                    function(ec) {
+                        // 基于准备好的dom，初始化echarts图表
+                        var myChart = ec.init(document.getElementById('users'));
+
+                        var option = {
+
+                            tooltip: {
+                                show: true
+                            },
+                            legend: {},
+                            xAxis: [],
+                            yAxis: [],
+                            series: []
+                        };
+                        $.get('{:url("user/statistics")}').done(function(data) {
+                            myChart.setOption({
+                                legend: data.legend,
+                                xAxis: data.xAxis,
+                                series: data.series
+                            });
+                        });
+                        // 为echarts对象加载数据
+                        myChart.setOption(option);
+                    }
+                );
+                 require(
+                    [
+                        'echarts',
+                        'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+                    ],
+
+
+                    function(ec) {
+                        // 基于准备好的dom，初始化echarts图表
+                        var myChart = ec.init(document.getElementById('log'));
+                       
+                        var option = {
+
+                            tooltip: {
+                                show: true
+                            },
+                            legend: {},
+                            xAxis: [],
+                            yAxis: [],
+                            series: []
+                        };
+                        $.get('{:url("user/statistics3")}').done(function(data) {
+                            myChart.setOption({
+                                legend: data.legend,
+                                xAxis: data.xAxis,
+                                series: data.series
+                            });
+                        });
+                        // 为echarts对象加载数据
+                        myChart.setOption(option);
+                    }
+                );
+                 //  require(
+                 //     [
+                 //         'echarts',
+                 //         'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+                 //     ],
+
+
+                 //     function(ec) {
+                 //         // 基于准备好的dom，初始化echarts图表
+                 //         var myChart = ec.init(document.getElementById('time'));
+                        
+                 //         var option = {
+
+                 //             tooltip: {
+                 //                 show: true
+                 //             },
+                 //             legend: {},
+                 //             xAxis: [],
+                 //             yAxis: [],
+                 //             series: []
+                 //         };
+                 //         $.get('{:url("user/statistics4")}').done(function(data) {
+                 //             myChart.setOption({
+                 //                 legend: data.legend,
+                 //                 xAxis: data.xAxis,
+                 //                 series: data.series
+                 //             });
+                 //         });
+                 //         // 为echarts对象加载数据
+                 //         myChart.setOption(option);
+                 //     }
+                 // );
+            </script>
+        </div>
+</div>
+<style>
+    .loading-more {
+        overflow: hidden;
+    }
+
+    .loading-more>div {
+        display: inline-block;
+    }
+
+    .loading-more a {
+        float: right;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+</style>

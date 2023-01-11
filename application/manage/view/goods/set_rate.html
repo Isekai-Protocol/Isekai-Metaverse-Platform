@@ -1,0 +1,19 @@
+<form class="layui-form  seller-alone-form" id="edit_royalties" style="padding: 20px;">
+   <div class="layui-form-item">
+       <label class="layui-form-label">版税：</label>
+       <div class="layui-input-block">
+           <input type="number" name="royalties" value="{$info.royalties}" required lay-verify="required" placeholder="版税" autocomplete="off" class="layui-input">
+            <div class="layui-form-mid layui-word-aux">%</div>
+       </div>
+   </div>
+
+    <input type="hidden" name="id" value="{$info.id}">
+    {:jshopToken('edit_royalties')}
+</form>
+<script>
+    layui.use(['form', 'laydate'], function () {
+        var form = layui.form, laydate = layui.laydate;
+       
+        form.render();
+    });
+</script>

@@ -1,0 +1,167 @@
+<style>
+    #container{
+        padding: 0px;
+        border-radius:0px;
+        border-width:0px;
+    }
+</style>
+<form class="layui-form seller-alone-form" action="" method="post">
+
+    <input type="hidden" name="id" value="{$info.id}">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>专辑：</label>
+        <div class="layui-input-inline seller-inline-5">
+            <select name="type_id" lay-verify="required" style="z-index: 5">
+                {volist name='list' id='vo'}
+                <option value="{$vo.id}" {if $vo.id == $info.type_id}selected{/if}>{$vo.type_name}</option>
+                {/volist}
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>文章标题中文：</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" value="{$info.title}" required lay-verify="required" placeholder="请输入文章标题中文" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>文章标题英文：</label>
+        <div class="layui-input-block">
+            <input type="text" name="title_eng" required value="{$info.title_eng}" lay-verify="required" placeholder="请输入文章标题英文" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">价格：</label>
+        <div class="layui-input-block">
+            <input type="text" name="price" placeholder="请输入文章价格" autocomplete="off" class="layui-input" value="{$info.price}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">简介：</label>
+        <div class="layui-input-block">
+            <textarea name="brief" placeholder="请输入简介" class="layui-textarea">{$info.brief}</textarea>
+        </div>
+    </div>
+    <br>
+    <div class="layui-form-item">
+        <label class="layui-form-label">英文简介：</label>
+        <div class="layui-input-block">
+            <textarea name="brief_eng" placeholder="请输入简介" class="layui-textarea">{$info.brief_eng}</textarea>
+        </div>
+    </div>
+    <!-- <div class="layui-form-item">
+        <label class="layui-form-label">作者中文：</label>
+        <div class="layui-input-block">
+            <input type="text" name="auother" placeholder="请输入文章作者中文" autocomplete="off" class="layui-input" value="{$info.auother}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">作者英文：</label>
+        <div class="layui-input-block">
+            <input type="text" name="auother_eng" placeholder="请输入文章作者英文" autocomplete="off" class="layui-input" value="{$info.auother_eng}">
+        </div>
+    </div> -->
+
+   <!--  <div class="layui-form-item">
+        <label class="layui-form-label">话数：</label>
+        <div class="layui-input-block">
+            <input type="text" name="chapter" placeholder="请输入文章话数" autocomplete="off" class="layui-input" value="{$info.chapter}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">字数：</label>
+        <div class="layui-input-block">
+            <input type="text" name="words" placeholder="请输入文章字数" autocomplete="off" class="layui-input" value="{$info.words}">
+        </div>
+    </div> -->
+
+    <div class="layui-form-item" style="margin: 20px 0 20px 0;">
+        <label class="layui-form-label">是否投放市场：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="is_market" value="0" title="否" {if $info.is_market == 0}checked{/if}>
+            <input type="radio" name="is_market" value="1" title="是" {if $info.is_market == 1}checked{/if}>
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin: 20px 0 20px 0;">
+        <label class="layui-form-label">是否是新品：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="is_new" value="0" title="否" {if $info.is_new == 0}checked{/if}>
+            <input type="radio" name="is_new" value="1" title="是" {if $info.is_new == 1}checked{/if}>
+        </div>
+    </div>
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label">点赞数：</label>
+        <div class="layui-input-block">
+            <input type="text" name="likes" placeholder="请输入文章点赞数" autocomplete="off" class="layui-input" value="{$info.likes}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">封面图：</label>
+        <div class="layui-input-inline seller-inline-5">
+            {Jshop:image id='img' name='cover' value="$info['cover']"/}
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">标签：</label>
+        <div class="layui-input-block">
+          {volist name="label" id="vo"}
+            {if !empty($info['labels'])}
+              <input type="checkbox" name="labels[]" lay-skin="primary" value="{$vo.id}" title="{$vo.name}" {if condition="in_array($vo['id'],$info['labels'])"}checked{/if}>
+            {else/}
+                <input type="checkbox" name="labels[]" lay-skin="primary" value="{$vo.id}" title="{$vo.name}">
+            {/if}
+          {/volist}
+        </div>
+    </div>
+
+    <!-- <div class="layui-form-item layui-form-text" >
+        <label class="layui-form-label">文章内容：</label>
+        <div class="layui-input-block" style="z-index: 1">
+            <textarea id="container" name="content" style="width:100%;height:300px;" type="text/plain" class="layui-textarea">{$info.content}</textarea>
+        </div>
+    </div> -->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序：</label>
+        <div class="layui-input-inline seller-inline-2">
+            <input type="text" name="sort" value="{$info.sort}" required  lay-verify="required" placeholder="从小到大排列" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            {:jshopToken('article_edit')}
+            <button type="button" class="layui-btn" lay-submit lay-filter="edit_article">保存</button>
+            <button onclick="javascript:history.back(-1)" type="reset" class="layui-btn layui-btn-primary">返回</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+        //监听提交
+        form.on('submit(edit_article)', function(data){
+            JsPost("{:url('Article/edit')}", data.field, function(res){
+                if(res.status){
+                    layer.msg(res.msg, {time:1300},function(){
+                        window.location.href = "{:url('Article/index')}";
+                    });
+                }else{
+                    layer.msg(res.msg);
+                }
+            })
+        });
+    });
+</script>
+<script type="text/javascript">
+    // var ue = UE.getEditor('container');
+</script>

@@ -1,0 +1,77 @@
+<form class="layui-form seller-alone-form" id="chapterEdit" action="" method="post">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>章节：</label>
+        <div class="layui-input-inline seller-inline-5">
+            <input type="text" name="index" required  lay-verify="required" placeholder="请输入章节" autocomplete="off" class="layui-input" value="{$info['index']}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">章节名称：</label>
+        <div class="layui-input-inline seller-inline-5">
+            <input type="text" name="name" placeholder="请输入章节名称" autocomplete="off" class="layui-input" value="{$info['name']}">
+        </div>
+    </div>
+
+    <div class="layui-form-item video" >
+        <label class="layui-form-label"><i class="required-color">*</i>文本：</label>
+        <div class="layui-input-inline" style="width:300px;">
+            <div class="layui-progress" lay-showPercent="true" lay-filter="upload" style="margin-bottom:2px;">
+                <div class="layui-progress-bar layui-bg-blue" lay-percent="0%"  ></div>
+            </div>
+            <button type="button" class="layui-btn" id="chapter" style="margin-bottom:10px;"><i class="layui-icon"></i>上传章节</button>
+            <br />
+            <i class="required-color">*只能上传文本 最大上传文件为 2G </i>
+
+            <p id="toVideo">文件:{$info['url']}</p>
+        </div>
+       
+        <div id="fileName">
+        </div>
+    </div>
+
+    <input type="hidden" name="chapter_url" class="chapter" id="chapter_url" value="{$info['url']}"/>
+    <input type="hidden" name="id" value="{$info['id']}">
+    <input type="hidden" name="article_id" value="{$info['article_id']}">
+</form>
+
+<script>
+    //渲染表单
+    // $('#toVideo').hide();
+    $('.layui-progress').hide();
+    //渲染表单
+    layui.use(['form','upload','element'], function() {
+        var $ = layui.jquery
+            , upload = layui.upload
+            , element = layui.element;
+
+
+        /***
+         * 上传章节
+         * */
+        upload.render({
+            elem: '#chapter'
+            , url: "{:url('Files/uploadArticle')}"
+            , accept: 'file' //视频
+            ,progress: function(n){
+                var percent = n + '%';//获取进度百分比
+                element.progress('upload', percent); //可配合 layui 进度条元素使用
+                $('.layui-progress').show();
+            }
+            , done: function (res) {
+                layer.msg(res.msg);
+                if (res.status) {
+                    $('#toVideo').html('文件:'+res.data.name);
+                    $('#chapter_url').attr('value',res.data.url);
+                    $('#toVideo').show();
+                    $('.layui-progress').hide();
+                }
+            }
+            , error: function (res) {
+                layer.closeAll('loading');
+                layer.msg("上传失败，请重新上传");
+            }
+        });
+
+    });
+</script>

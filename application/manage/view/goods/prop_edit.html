@@ -1,0 +1,55 @@
+<form class="layui-form seller-alone-form" id="propEdit" action="" method="post">
+
+    <!-- <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>道具名：</label>
+        <div class="layui-input-inline seller-inline-5">
+            <input type="text" name="name" required  lay-verify="required" placeholder="请输入道具名" autocomplete="off" class="layui-input" value="{$info.name}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">道具名英文：</label>
+        <div class="layui-input-inline seller-inline-5">
+            <input type="text" name="name_eng" placeholder="请输入道具名英文" autocomplete="off" class="layui-input" value="{$info.name_eng}">
+        </div>
+    </div> -->
+
+   <!--  <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>表情/头像：</label>
+        <div class="layui-input-inline seller-inline-5">
+            {Jshop:image id='cover' name="cover" value="$info.cover" /}
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>名片：</label>
+        <div class="layui-input-inline seller-inline-5">
+            {Jshop:image id='prop_img' name="prop_img" value="$info.prop_img" /}
+        </div>
+    </div>
+ -->
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>角色立绘：</label>
+        <div class="layui-input-inline seller-inline-5">
+            {Jshop:image id='role_img' name="role_img" value="$info.role_img" /}
+        </div>
+    </div>
+
+    <!-- <div class="layui-form-item">
+        <label class="layui-form-label">排序：</label>
+        <div class="layui-input-inline seller-inline-5">
+            <input type="number" name="sort" placeholder="请输入道具排序" autocomplete="off" class="layui-input" value="{$info.sort}">
+        </div>
+    </div> -->
+    
+    <input type="hidden" name="id" value="{$info.id}">
+</form>
+
+<script>
+    //渲染表单
+    layui.use(['form','upload','element'], function() {
+        var $ = layui.jquery
+            , upload = layui.upload
+            , element = layui.element;
+
+    });
+</script>

@@ -1,0 +1,109 @@
+<script src="__STATIC_JS__jquery.form.js" type="text/javascript" charset="utf-8"></script>
+<div class="layui-form seller-form"  action="" >
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">道具标题：</label>
+            <div class="layui-input-inline seller-inline-4">
+                <input type="text" name="title" lay-verify="title" placeholder="请输入标题关键字" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <button class="layui-btn layui-btn-sm" lay-submit lay-filter="article_search"><i class="iconfont icon-chaxun"></i>筛选</button>
+           <!--  <button type="button" class="layui-btn layui-btn-sm add-prop"><i class="layui-icon">&#xe608;</i> 添加</button> -->
+        </div>
+        <div class="layui-inline">
+            <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="import-part"><i class="layui-icon"></i>导入组件</button>
+        </div>
+    </div>
+</div>
+<div class="table-body">
+	<table id="propTable" lay-filter="propTable"></table>
+</div>
+
+<div id="importPart" style="display: none;">
+    <form class="layui-form import-form" method="post" action="{:url('ietask/importPart')}" enctype="multipart/form-data">
+        <div class="layui-form-item">
+            <div class="layui-margin-10">
+                <blockquote class="layui-elem-quote layui-text">
+                    请先下载<a href="https://ec.wexiang.vip/角色组件表.csv">导入模板</a><br/>
+                    组件导入，请务必填写组件编码。
+                </blockquote>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">
+                    <input type="file" class="layui-file" name="importFile" id="importFile">
+                    <input type="hidden" name="model" value="assembly">
+                </label>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    layui.use(['table','form','layer','laydate'],function(){
+        var layer = layui.layer, table = layui.table,form = layui.form,date = layui.laydate;
+        //执行渲染
+        table.render({
+            elem: '#propTable', //指定原始表格元素选择器（推荐id选择器）
+            height: 'full-139',
+            cellMinWidth: '80',
+            page: 'true',
+            limit:'20',
+            id:'propTable',
+            url: "{:url('Goods/assemblyIndex')}",
+            cols: [[ //标题栏
+                {field: 'part_id', title: '组件ID', align: 'center'},
+                {field: 'part_name', title: '组件名字', align: 'center'},
+                {field: 'part_cate', title: '组件类型', align: 'center'},
+                {field: 'part_type', title: '组件属性', align: 'center'},
+                // {width:140, title:'操作',align:'center', toolbar:'#articleBar'}
+            ]] //设置表头
+            //,…… //更多参数参考右侧目录：基本参数选项
+        });
+
+        //搜索
+        form.on('submit(article_search)', function(data){
+            layui.table.reload('propTable', {
+                where: data.field
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+        //组件导入
+        layui.form.on('submit(import-part)', function(data) {
+            layer.open({
+                type: 1,
+                title:'组件导入',
+                area: setpage(400,290), //宽高
+                btn:['确定','取消'],
+                content: $("#importPart").html(),
+                yes:function (index,obj) {
+                    $(obj).find('.import-form').ajaxSubmit({
+                        type:'post',
+                        dataType:'json',
+                        success:function(result){
+                            layer.msg(result.msg, {time:1500}, function(){
+                                if(result.status){
+                                    layer.closeAll();
+                                   layui.table.reload('propTable', {
+                                       
+                                   });
+                                }
+                            });
+                        },
+                        error:function(result){
+                            layer.msg("导入失败");
+                        }
+                    });
+                },btn2:function () {
+                    layer.closeAll();
+                }
+            });
+        });
+
+    })
+</script>

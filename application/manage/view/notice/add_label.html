@@ -1,0 +1,34 @@
+<div style="padding:30px;" class="layui-form seller-alone-form" lay-filter="add_label"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="required-color">*</i>标签名称：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <input type="text" name="name" required lay-verify="required" placeholder="请输入标题信息" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">颜色编码：</label>
+        <div class="layui-input-inline seller-inline-4">
+            <input type="text" name="bak_color" required lay-verify="required" placeholder="请输入颜色编码如#ccc" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">标签类型：</label>
+        <div class="layui-input-inline seller-inline-3">
+            <select name="type" id="type">
+                <option value="1">文章</option>
+                <option value="2">游戏</option>
+            </select>
+        </div>
+    </div>
+        
+    {:jshopToken('label_add')}
+    <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+</div>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+        form.render();
+    });
+</script>
