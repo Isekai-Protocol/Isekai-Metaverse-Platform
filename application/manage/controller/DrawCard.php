@@ -64,6 +64,7 @@ class DrawCard extends Manage
 
         $info = $cardModel->where('id',input('id'))->find();
         $info['utime'] = date('Y-m-d H:i:s',$info['stime']).' 到 '.date('Y-m-d H:i:s',$info['etime']);
+        $info['stime'] = date('Y-m-d H:i:s',$info['start_time']).' 到 '.date('Y-m-d H:i:s',$info['end_time']);
         if (Request::isPost()) {
             $data = input('param.');
             

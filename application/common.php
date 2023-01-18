@@ -2205,7 +2205,7 @@ function decodeStr($str = '',$key = '')
 }
 
 // 添加平台草稿
-function addPlatformDraft($id,$type,$is_draft=2)
+function addPlatformDraft($id,$type,$is_draft=0)
 {
     $workModel = new \app\common\model\UserWorks();
     $work_data = [

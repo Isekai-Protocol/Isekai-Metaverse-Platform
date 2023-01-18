@@ -86,6 +86,7 @@ class UserSale extends Common
 		$game = new \app\common\model\Game();
 		$Goods = new \app\common\model\Goods();
 		$work_mod = new \app\common\model\UserWorks();
+		$wallectModel = new \app\common\model\userWallet();
 
 		if($params['type'] == 1){
 			// 文章
@@ -105,6 +106,24 @@ class UserSale extends Common
 		}
 
 		$work_mod->where(['obj_id' => $params['id'],'type' => $params['type']])->update(['is_market' => 1]);
+		// 添加发行方式
+		if(isset($params['post_type']) && !empty($params['post_type'])){
+
+		    $extend_params['post_type'] = implode(',', $params['post_type']);
+		    $extend_params['experience_type'] = $params['experience_type'];
+		    $extend_params['experience_price'] = $params['experience_price'];
+		    $extend_params['digitization_number'] = $params['digitization_number'];
+		    $extend_params['digitization_price'] = $params['digitization_price'];
+		    $extend_params['copyright_number'] = $params['copyright_number'];
+		    $extend_params['copyright_price'] = $params['copyright_price'];
+		    // $extend_params['end_time'] = isset($params['end_time']) ? $params['end_time'] : 0;
+		    $work_id = $work_mod->where(['obj_id' => $params['id'],'type' => $params['type']])->value('id');
+		    $work_id = $work_mod->doMyWork($user_id,$params['id'],$params['type'],1,2,$work_id,$extend_params);
+		    $user_address = $wallectModel->where(['user_id' => $user_id])->order('is_default desc')->value('address');
+		    makeMyNft($params['id'],$params['type'],$user_id,1,$extend_params,$user_address);
+		    // mintNFT($user_id,$res,$params['type']);
+		}
+
 		// $sale_goods_mod = new \app\common\model\UserSaleGoods();
 		// if($params['is_binding'] && $sale_id){	
 		// 	// 先删后加

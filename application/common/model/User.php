@@ -2637,7 +2637,7 @@ class User extends Common
                 foreach ($work_arr as $key => $value) {
                     if($value['type'] == 1){
                         // 文章
-                        $temp_data = $articleModel->where('id',$value['obj_id'])->field('id,title,price,code,is_market,cover,type_id')->find();
+                        $temp_data = $articleModel->where('id',$value['obj_id'])->field('id,title,price,code,is_market,cover,type_id,brief')->find();
                         if(!empty($temp_data)){
                             $list[$key]['cate_name'] = $cateModel->where('id',$temp_data['type_id'])->value('type_name');
                             $list[$key]['goods_id'] = $temp_data['id'];
@@ -2713,15 +2713,24 @@ class User extends Common
                     }
 
                     $list[$key]['work_id'] = $value['id'];
-                    if($value['is_draft'] == 0){
-                        $status_txt = '待审核';
-                    }elseif($value['is_draft'] == 1){
-                        $status_txt = '';
-                    }elseif($value['is_draft'] == 2){
-                        $status_txt = '通过';
+                    $list[$key]['sale_id'] = $saleModel->where(['obj_id' => $value['obj_id'],'obj_type' => $value['type'],'status' => 0])->value('id');
+
+                    if(!empty($list[$key]['sale_id'])){
+                        $status_txt = '出售中';
+                        $list[$key]['is_draft'] = 4;
                     }else{
-                        $status_txt = '驳回';
+                        if($value['is_draft'] == 0){
+                            $status_txt = '待审核';
+                        }elseif($value['is_draft'] == 1){
+                            $status_txt = '';
+                        }elseif($value['is_draft'] == 2){
+                            $status_txt = '通过';
+                        }else{
+                            $status_txt = '驳回';
+                        }
                     }
+
+                    
                     $list[$key]['status'] = $status_txt;//审核状态:0待审核1草稿2通过3关闭
                 }
             }
@@ -3062,16 +3071,16 @@ class User extends Common
 
         // 增加发行方式
         $extend_params = [];
-        if(isset($params['post_type']) && !empty($params['post_type'])){
-            $extend_params['post_type'] = implode(',', $params['post_type']);
-            $extend_params['experience_type'] = $params['experience_type'];
-            $extend_params['experience_price'] = $params['experience_price'];
-            $extend_params['digitization_number'] = $params['digitization_number'];
-            $extend_params['digitization_price'] = $params['digitization_price'];
-            $extend_params['copyright_number'] = $params['copyright_number'];
-            $extend_params['copyright_price'] = $params['copyright_price'];
-            $extend_params['end_time'] = isset($params['end_time']) ? $params['end_time'] : 0;
-        }
+        // if(isset($params['post_type']) && !empty($params['post_type'])){
+        //     $extend_params['post_type'] = implode(',', $params['post_type']);
+        //     $extend_params['experience_type'] = $params['experience_type'];
+        //     $extend_params['experience_price'] = $params['experience_price'];
+        //     $extend_params['digitization_number'] = $params['digitization_number'];
+        //     $extend_params['digitization_price'] = $params['digitization_price'];
+        //     $extend_params['copyright_number'] = $params['copyright_number'];
+        //     $extend_params['copyright_price'] = $params['copyright_price'];
+            // $extend_params['end_time'] = isset($params['end_time']) ? $params['end_time'] : 0;
+        // }
         // 插画不存储数字化信息
         // if($params['type'] == 4){
         //     $extend_params = [];
@@ -3080,9 +3089,9 @@ class User extends Common
         $workModel = new \app\common\model\UserWorks();
         $wallectModel = new \app\common\model\userWallet();
 
-        $work_id = $workModel->doMyWork($user_id,$res,$params['type'],0,$params['is_draft'],$params['work_id'],$extend_params);
-        $user_address = $wallectModel->where(['user_id' => $user_id])->order('is_default desc')->value('address');
-        makeMyNft($res,$params['type'],$user_id,1,$extend_params,$user_address);
+        $work_id = $workModel->doMyWork($user_id,$res,$params['type'],0,$params['is_draft'],$params['work_id'],$extend_params,$params['end_time']);
+        // $user_address = $wallectModel->where(['user_id' => $user_id])->order('is_default desc')->value('address');
+        // makeMyNft($res,$params['type'],$user_id,1,$extend_params,$user_address);
         // mintNFT($user_id,$res,$params['type']);
 
         return $res ? ['status' => true,'msg' => '成功','data' => $res,'work_id' => $work_id] : error_code(10004);

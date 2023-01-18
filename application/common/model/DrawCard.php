@@ -51,9 +51,14 @@ class DrawCard extends Common
     {
         $result = ['status'=>true,'msg'=>'保存成功','data'=>''];
         $theDate = explode(' 到 ',$data['utime']);
+        $theDate2 = explode(' 到 ',$data['stime']);
         if(count($theDate) == 2){
             $data['stime'] = strtotime($theDate[0]);
             $data['etime'] = strtotime($theDate[1]);
+        }
+        if(count($theDate2) == 2){
+            $data['start_time'] = strtotime($theDate2[0]);
+            $data['end_time'] = strtotime($theDate2[1]);
         }
         if (!$this->allowField(true)->save($data))
         {
@@ -75,6 +80,7 @@ class DrawCard extends Common
     {
         $result = ['status'=>true,'msg'=>'保存成功','data'=>''];
         $theDate = explode(' 到 ',$data['utime']);
+        $public_time = $data['stime'];
         if(count($theDate) == 2){
             $data['stime'] = strtotime($theDate[0]);
             $data['etime'] = strtotime($theDate[1]);
@@ -83,14 +89,28 @@ class DrawCard extends Common
             $data['etime'] = 0;
         }
 
+        $theDate2 = explode(' 到 ',$public_time);
+
+        if(count($theDate2) == 2){
+            $data['start_time'] = strtotime($theDate2[0]);
+            $data['end_time'] = strtotime($theDate2[1]);
+        }else{
+            $data['start_time'] = 0;
+            $data['end_time'] = 0;
+        }
+
         $card_data = [
             'version' => $data['version'],
             'desc' => $data['desc'],
             'rule' => $data['rule'],
             'stime' => $data['stime'],
             'etime' => $data['etime'],
+            'title' => $data['title'],
+            'start_time' => $data['start_time'],
+            'end_time' => $data['end_time'],
+            'white_limit' => $data['white_limit'],
+            'public_limit' => $data['public_limit'],
         ];
-
         if(!$this->where('id',$data['id'])->update($card_data))
         {
             $result['status'] = false;
@@ -192,21 +212,72 @@ class DrawCard extends Common
 
         $config = $this->find();
         $config['cover'] = _sImage($config['cover']);
-        $config['stime'] = date('Y-m-d H:i:s',$config['stime']);
-        $config['etime'] = date('Y-m-d H:i:s',$config['etime']);
+        // $config['stime'] = date('Y-m-d H:i:s',$config['stime']);
+        // $config['etime'] = date('Y-m-d H:i:s',$config['etime']);
+        // $config['start_time'] = date('Y-m-d H:i:s',$config['start_time']);
+        // $config['end_time'] = date('Y-m-d H:i:s',$config['end_time']);
 
         $roleModel = new \app\common\model\CardRole();
         $goodsModel = new \app\common\model\Goods();
+        $logModel = new \app\common\model\DrawLog();
+        $powerModel = new \app\common\model\WallectPower();
 
-        $roleList = $roleModel->select();
+        // 数据统计
+        // 统计角色总数
+        $config['role_total'] = $goodsModel->count();
+        // 统计已抽角色
+        $config['lose_role'] = $logModel->count();
 
-        foreach ($roleList as $key => $value) {
-            $roleList[$key]['role_info'] = $goodsModel->getRoleDetial($value['goods_id'])['data'];
+        // 白名单总数
+        $config['white_total'] = $powerModel->count()*$config['white_limit'];
+        $config['white_success'] = 0;
+
+        // 公售总数
+        $config['public_total'] = $config['role_total']-$config['white_total'];
+        $config['public_success'] = $config['lose_role']-$config['white_success'];
+
+        // 获取卡券信息
+        $card_config = getMultipleSetting('card_img,card_price');
+        $config['card_img'] = _sImage($card_config['card_img']);
+        $config['card_price'] = $card_config['card_price'];
+
+        // 格式化时间
+        $config['white_time_txt'] = '';
+        $config['public_time_txt'] = '';
+
+        if(time() > $config['etime']){
+            $config['white_time_txt'] = '已结束';
+        }else{
+            if(time() > $config['stime']){
+                $time_com = $config['etime'] - time();
+                $config['white_time_txt'] = '结束于'.secondConversion($time_com);
+            }else{
+                $time_com = $config['stime'] - time();
+                $config['white_time_txt'] = '开始于'.secondConversion($time_com);
+            }
         }
+        
+        if(time() > $config['end_time']){
+            $config['public_time_txt'] = '已结束';
+        }else{
+            if(time() > $config['start_time']){
+                $time_com_2 = $config['end_time']-time();
+                $config['public_time_txt'] = '结束于'.secondConversion($time_com_2);
+            }else{
+                $time_com_2 = $config['stime']-time();
+                $config['public_time_txt'] = '开始于'.secondConversion($time_com_2);
+            }
+        }
+        
+        // $roleList = $roleModel->select();
+
+        // foreach ($roleList as $key => $value) {
+        //     $roleList[$key]['role_info'] = $goodsModel->getRoleDetial($value['goods_id'])['data'];
+        // }
 
         $data = [
             'config' => $config,
-            'list' => $roleList
+            // 'list' => $roleList
         ];
 
         return [

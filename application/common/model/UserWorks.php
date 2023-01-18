@@ -18,7 +18,7 @@ namespace app\common\model;
 class UserWorks extends Common
 {   
     // 添加我的作品
-    public function doMyWork($user_id,$id,$type=1,$is_market=0,$is_draft=1,$work_id = '',$post_data = array())
+    public function doMyWork($user_id,$id,$type=1,$is_market=0,$is_draft=1,$work_id = '',$post_data = array(),$end_time = '')
     {
 
         $workData = [
@@ -27,6 +27,7 @@ class UserWorks extends Common
             'is_market' => $is_market,
             'is_draft' => $is_draft,
             'user_id' => $user_id,
+            'end_time' => $end_time
         ];
 
         if(!empty($post_data)){
@@ -37,7 +38,7 @@ class UserWorks extends Common
             $workData['digitization_price'] = $post_data['digitization_price'];
             $workData['copyright_number'] = $post_data['copyright_number'];
             $workData['copyright_price'] = $post_data['copyright_price'];
-            $workData['end_time'] = $post_data['end_time'];
+            // $workData['end_time'] = $post_data['end_time'];
 
             // 数字化发行-格式化价格
             $post_type = explode(',', $post_data['post_type']);

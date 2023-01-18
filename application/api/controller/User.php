@@ -2193,4 +2193,19 @@ class User extends Api
 
         return mintNFT($address,$id,$type);
     }
+
+    // 提交审核
+    public function auditNft()
+    {
+        $token = Request::param('token', false);
+        $user_id = getUserIdByToken($token);
+
+        $work_id = input('work_id');
+
+        $work_mod = new \app\common\model\UserWorks();
+        $res = $work_mod->where('id',$work_id)->update(['is_draft' => 0]);
+
+        return $res ? ['status' => true,'msg' => '提交成功'] : error_code(18005);
+    }
+
 }

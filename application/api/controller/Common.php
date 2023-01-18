@@ -1154,7 +1154,7 @@ class Common extends Api
         $res = $curl::get($binUrl);
         $result = json_decode($res);
         $bin_data = $result->data->binance;
-        $data = $bin_num/$bin_data->ETH;
+        $data = $bin_num/$bin_data->USDT;
 
         return ['status' => true,'msg' => '','data' => number_format($data,2)];
     }
@@ -1448,6 +1448,40 @@ class Common extends Api
         return ['status' => true,'msg' => '获取成功','data' => $info];
     }
 
+    // 判断用户是否有权限
+    public function gamePower()
+    {
+        $token = input('token');
+        $user_id = getUserIdByToken($token);
+        // 剧本id
+        $script_id = input('id');
+
+        $script_mod = new \app\common\model\Script();
+        $script_info = $script_mod->where('id',$script_id)->find();
+
+        if(empty($script_id) || empty($script_info)){
+            return error_code(10002);
+        }
+
+        // 上传者与购买者有权限
+        $power_arr = [];
+
+        $log_mod = new \app\common\model\BuyLog();
+        $game = new \app\common\model\Game();
+
+        $game_ids = $game->where('script_id',$script_id)->column('g_id');
+        if(!empty($game_ids)){
+            $power_arr[] = $log_mod->where('obj_type',3)->whereIn('obj_id',$game_ids)->value('user_id');
+        }
+
+        array_push($power_arr, $script_info['user_id']);
+
+        if(in_array($user_id, $power_arr)){
+            return ['status' => true,'msg' => '获取成功','data' => true];
+        }else{
+            return error_code(11105);
+        }
+    }
 
     // 根据资源id 拉取资源
     public function getSourceById()

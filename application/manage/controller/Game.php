@@ -87,6 +87,7 @@ class Game extends Manage
                 'sort' => input('sort'),
                 'is_market' => input('is_market'),
                 'is_new' => input('is_new'),
+                'script_id' => input('script_id'),
             ];
             return $gameModel->saveData($data);
         }
