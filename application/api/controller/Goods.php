@@ -733,6 +733,7 @@ class Goods extends Api
     {
         $id = input('id');
         $cutimg_name = 'cut_'.$id.'_img.webp';
+        $host = 'http://'.$_SERVER['HTTP_HOST'];
 
         if(file_exists($cutimg_name)){
             return ['status' => false,'msg' => ''];
@@ -749,13 +750,13 @@ class Goods extends Api
             // 性别
             if($goods_info['data']['sex'] == 1){
                 // 男
-                $sex_img = 'https://ec.wexiang.vip/source/img3/1.png';
+                $sex_img = $host.'/source/img3/1.png';
             }elseif($goods_info['data']['sex'] == 2){
                 // 女
-                $sex_img = 'https://ec.wexiang.vip/source/img1/45.png';
+                $sex_img = $host.'/source/img1/45.png';
             }else{
                 // 无性
-                $sex_img = 'https://ec.wexiang.vip/source/img3/2.png';
+                $sex_img = $host.'/source/img3/2.png';
             }
 
             $role_name_eng = $goods_info['data']['name_eng'];//角色英文名称

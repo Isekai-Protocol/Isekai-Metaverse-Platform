@@ -268,8 +268,9 @@ class Common extends Api
     // 测试
     public function test()
     {
-        $r = file_get_contents('chain_log.txt');
-        echo $r;
+        dump(calRolePosition(321));die;
+        // $r = file_get_contents('chain_log.txt');
+        // echo $r;
         // 查询余额
         // $arr = [1,2,3,4,1,2,1];
         // dump(getArrCommon($arr));die;
@@ -999,11 +1000,12 @@ class Common extends Api
     public function getMenuList()
     {
         $menu_mod = new \app\common\model\FrontMenu();
+        $host = 'http://'.$_SERVER['HTTP_HOST'];
 
         $list = $menu_mod->where(['pid' => 0,'status' => 1])->order('sort asc')->select();
         $new_arr = [
             [
-                'icon' => 'https://ec.wexiang.vip/source/img/4.png',
+                'icon' => $host.'/source/img/4.png',
                 'url' => '/'
             ]
         ];

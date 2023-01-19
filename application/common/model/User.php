@@ -297,7 +297,7 @@ class User extends Common
 
                     // 注册平台钱包
                     $curl = new Curl();
-                    $makeWalletUrl = 'http://124.71.137.54:1234/api/v1/createWallet';
+                    $makeWalletUrl = getChainHost().'/api/v1/createWallet';
                     $res = $curl::get($makeWalletUrl);
                     addLog($makeWalletUrl,[],$res);
                     $user_wallet = new \app\common\model\userWallet();

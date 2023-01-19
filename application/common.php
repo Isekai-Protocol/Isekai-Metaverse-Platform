@@ -2302,22 +2302,23 @@ function saveUserTimes($user_id = 0,$page_url = '',$enter_time = 0,$leave_time =
 // 计算角色立场
 function calRolePosition($role_id = '')
 {
+    $host = 'http://'.$_SERVER['HTTP_HOST'];
     // 仁善
-    $benevolent = 'https://ec.wexiang.vip/character/benevolent.png';
+    $benevolent = $host.'/character/benevolent.png';
     // 济世
-    $compassionate = 'https://ec.wexiang.vip/character/compassionate.png';
+    $compassionate = $host.'/character/compassionate.png';
     // 刚正
-    $justice = 'https://ec.wexiang.vip/character/justice.png';
+    $justice = $host.'/character/justice.png';
     // 中庸
-    $moderate = 'https://ec.wexiang.vip/character/moderate.png';
+    $moderate = $host.'/character/moderate.png';
     // 叛逆
-    $rebelious = 'https://ec.wexiang.vip/character/rebelious.png';
+    $rebelious = $host.'/character/rebelious.png';
     // 唯我
-    $egoistical = 'https://ec.wexiang.vip/character/egoistical.png';
+    $egoistical = $host.'/character/egoistical.png';
     // 极恶
-    $evil = 'https://ec.wexiang.vip/character/evil.png';
+    $evil = $host.'/character/evil.png';
     // 混沌
-    $chaotic = 'https://ec.wexiang.vip/character/chaotic.png';
+    $chaotic = $host.'/character/chaotic.png';
 
     $extend_mod = new \app\common\model\GoodsExtend();
 
@@ -2387,6 +2388,13 @@ function formatWallet($address = '')
 
 /*链端*/
 
+// 获取链端配置域名
+function getChainHost()
+{
+    $host = 'http://124.71.137.54:1234';
+    return $host;
+}
+
 // nft铸造
 function mintNFT($address = '',$id = '',$type = 1,$level = 2)
 {
@@ -2442,7 +2450,7 @@ function mintNFT($address = '',$id = '',$type = 1,$level = 2)
     $info['author'] = $user_mod->where('id',$work_info['user_id'])->value('username');
 
     // $uniqueId = hash('fnv164', uniqid().microtime(true));
-    $mintNFT = 'http://124.71.137.54:1234/api/v1/mintNFT';
+    $mintNFT = getChainHost().'/api/v1/mintNFT';
 
     // if($wallet_info){
         $address = $wallet_info['address'];
@@ -2523,7 +2531,7 @@ function safeTransfer($contractLevel = 1,$fromAddress = '',$id = '',$privateKey 
 {
     $curl = new Curl();
 
-    $safeUrl = 'http://124.71.137.54:1234/api/v1/safeTransfer';
+    $safeUrl = getChainHost().'/api/v1/safeTransfer';
     $safeData = [
         'contractLevel' => $contractLevel,
         'fromAddress' => $fromAddress,
@@ -2546,7 +2554,7 @@ function setDefaultRoyalty($address = '',$price = 0,$level = 1)
 
     $curl = new Curl();
 
-    $mintNFT = 'http://124.71.137.54:1234/api/v1/setDefaultRoyalty';
+    $mintNFT = getChainHost().'/api/v1/setDefaultRoyalty';
         
     $data = [
         'contractLevel' => $level,
@@ -2566,7 +2574,7 @@ function setTokenRoyalty($contractLevel = 1,$tokenId = '',$receiver = '',$feeNum
 {
     $curl = new Curl();
 
-    $mintNFT = 'http://124.71.137.54:1234/api/v1/setTokenRoyalty';
+    $mintNFT = getChainHost().'/api/v1/setTokenRoyalty';
 
     $data = [
         'contractLevel' => $contractLevel,
@@ -2588,7 +2596,7 @@ function startSale($address = '',$level = 1,$tokenId = '',$price = 0)
 
     $curl = new Curl();
 
-    $startSale = 'http://124.71.137.54:1234/api/v1/startSale';
+    $startSale = getChainHost().'/api/v1/startSale';
 
     $wallet_mod = new \app\common\model\userWallet();
 
@@ -2639,7 +2647,7 @@ function balanceOf($address = '',$level = 1)
         return 0;
     }
 
-    $balance = 'http://124.71.137.54:1234/api/v1/balanceOf?address='.$address.'&contractLevel='.$level.'&privateKey='.$privateKey;
+    $balance = getChainHost().'/api/v1/balanceOf?address='.$address.'&contractLevel='.$level.'&privateKey='.$privateKey;
 
     $res = $curl::get($balance);
     
@@ -2664,7 +2672,7 @@ function withdraw($address = '',$level = 1)
 
     $curl = new Curl();
 
-    $withdraw = 'http://124.71.137.54:1234/api/v1/withdraw';
+    $withdraw = getChainHost().'/api/v1/withdraw';
 
     $wallet_mod = new \app\common\model\userWallet();
 
@@ -2699,7 +2707,7 @@ function setApprovalForAll($address = '',$level = 1)
 {
     $curl = new Curl();
 
-    $setApprovalForAll = 'http://124.71.137.54:1234/api/v1/setApprovalForAll';
+    $setApprovalForAll = getChainHost().'/api/v1/setApprovalForAll';
     $wallet_mod = new \app\common\model\userWallet();
 
     $wallet_info = $wallet_mod->where('address',$address)->find();
@@ -2734,7 +2742,7 @@ function lazyMint($address = '',$price = 0,$signature = '')
 {
     $curl = new Curl();
 
-    $lazyMint = 'http://124.71.137.54:1234/api/v1/lazyMint';
+    $lazyMint = getChainHost().'/api/v1/lazyMint';
 
     $uniqueId = hash('fnv164', uniqid().microtime(true));
 
@@ -2781,7 +2789,7 @@ function setMerkleRoot($root = '',$level = 1)
 {
     $curl = new Curl();
 
-    $setMerkleRoot = 'http://124.71.137.54:1234/api/v1/setMerkleRoot';
+    $setMerkleRoot = getChainHost().'/api/v1/setMerkleRoot';
 
     $data = [
         'root' => $root,

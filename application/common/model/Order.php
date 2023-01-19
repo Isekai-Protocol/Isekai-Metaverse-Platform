@@ -2535,7 +2535,7 @@ class Order extends Common
             $code = $info['code'];
             $name = '卡券';
             $cate_id = 0;
-            $cover = 'https://ec.wexiang.vip/wap/src/img/5.0257aab8.png';
+            $cover = 'http://'.$_SERVER['HTTP_HOST'].'/wap/src/img/5.0257aab8.png';
         }
 
 
