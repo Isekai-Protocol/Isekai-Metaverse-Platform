@@ -369,6 +369,10 @@ return [
             'mintNft'=>[
                 'code'     => 'mintNft',
                 'is_login' => true
+            ],
+            'auditNft'=>[
+                'code'     => 'auditNft',
+                'is_login' => true
             ]
         ]
     ],
@@ -1024,6 +1028,10 @@ return [
             'getscriptbyid' => [
                 'code' => 'getScriptById',
                 'is_login' => false
+            ],
+            'gamePower' => [
+                'code' => 'gamePower',
+                'is_login' => true
             ],
             'getsourcebyid' => [
                 'code' => 'getSourceById',
