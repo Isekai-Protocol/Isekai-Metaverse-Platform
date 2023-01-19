@@ -116,7 +116,7 @@ class DrawCard extends Common
             $result['status'] = false;
             $result['msg'] = error_code(10004,true);
         }
-
+       
         return $result;
     }
 
@@ -134,7 +134,7 @@ class DrawCard extends Common
         if(isset($post['version']) && $post['version'] != ""){
             $where[] = ['version', 'eq', $post['version']];
         }
-
+        
         if(input('?param.date')){
             $theDate = explode(' 到 ',input('param.date'));
             if(count($theDate) == 2){
@@ -142,7 +142,7 @@ class DrawCard extends Common
                 $where[] = ['etime', '<=', strtotime($theDate[1])];
             }
         }
-
+        
         $result['where'] = $where;
         $result['field'] = "*";
         return $result;
@@ -237,9 +237,10 @@ class DrawCard extends Common
         $config['public_success'] = $config['lose_role']-$config['white_success'];
 
         // 获取卡券信息
-        $card_config = getMultipleSetting('card_img,card_price');
-        $config['card_img'] = _sImage($card_config['card_img']);
-        $config['card_price'] = $card_config['card_price'];
+        $setModel = new \app\common\model\Setting();
+        // $card_config = getMultipleSetting('card_img,card_price');
+        $config['card_img'] = _sImage($setModel->where('skey','card_img')->value('value'));
+        $config['card_price'] = $setModel->where('skey','card_price')->value('value');
 
         // 格式化时间
         $config['white_time_txt'] = '';
@@ -256,7 +257,7 @@ class DrawCard extends Common
                 $config['white_time_txt'] = '开始于'.secondConversion($time_com);
             }
         }
-
+        
         if(time() > $config['end_time']){
             $config['public_time_txt'] = '已结束';
         }else{
@@ -268,7 +269,7 @@ class DrawCard extends Common
                 $config['public_time_txt'] = '开始于'.secondConversion($time_com_2);
             }
         }
-
+        
         // $roleList = $roleModel->select();
 
         // foreach ($roleList as $key => $value) {
@@ -301,14 +302,14 @@ class DrawCard extends Common
         // 消耗卡券
         $card_mod = new \app\common\model\UserCard();
         $card_id = $card_mod->where(['user_id'=>$user_id,'is_used'=>0])->value('id');
-        // if(empty($card_id)){
-        //     return error_code(12025);
-        // }
+        if(empty($card_id)){
+            return error_code(12025);
+        }
 
-        // $card_mod->where('id',$card_id)->update(['is_used'=>1,'use_time' => date('Y-m-d H:i:s',$now_time)]);
-
+        $card_mod->where('id',$card_id)->update(['is_used'=>1,'use_time' => date('Y-m-d H:i:s',$now_time)]);
+        
         // 删除卡券购买记录
-        // $orderItemModel->where(['goods_id'=>$card_id,'type' => 6])->delete();
+        $orderItemModel->where(['goods_id'=>$card_id,'type' => 6])->delete();
 
         $draw_version = $drawModel->where('stime','<=',$now_time)->where('etime','>',$now_time)->column('version');
         // dump($drawModel->getLastSql());die;
@@ -317,19 +318,19 @@ class DrawCard extends Common
         // dump($draw_ids);die;
         $ids = $logModel->column('goods_id');
         // $where[] = ['goods_id','in',$draw_ids];
-
+        
         // if($ids){
         //     $where[] = ['goods_id','not in',$ids];//排除已抽过的角色
         // }
 
         $ids = array_diff($draw_ids,$ids);
-        // if(!empty($ids)){
-        $where[] = ['goods_id','in',$ids];
-        // }else{
-        //     return error_code(10212);
-        // }
+        if(!empty($ids)){
+            $where[] = ['goods_id','in',$ids];
+        }else{
+            return error_code(10212);
+        }
 
-        $list = $roleModel->select();
+        $list = $roleModel->where($where)->select();
         if($list){
             $new_data = [];
             foreach ($list as $key => $value) {
@@ -340,7 +341,7 @@ class DrawCard extends Common
         }
 
         $res = randomSelect($new_data);
-
+        
         // 记录抽卡记录
         $log_data = [
             'user_id' => $user_id,
@@ -351,9 +352,9 @@ class DrawCard extends Common
 
         $logModel->insert($log_data);
 
-
+        
         // 下单
-        $orderModel->makeOrder($res,$user_id,5);
+       $orderModel->makeOrder($res,$user_id,5);
 
         return [
             'status' => true,
